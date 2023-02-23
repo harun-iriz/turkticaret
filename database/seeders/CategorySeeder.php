@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
 class CategorySeeder extends Seeder
 {
     /**
@@ -15,21 +14,20 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-            'categoryName' => 'Roman'
-        ],[
-            'categoryName' => 'Kişisel Gelişim'
-        ],[
-            'categoryName' => 'Bilim'
-        ],[
-            'categoryName' => 'Din Tasavvuf'
-        ],[
-            'categoryName' => 'Çocuk ve Gençlik'
-        ],[
-            'categoryName' => 'Öykü'
-        ],[
-            'categoryName' => 'Felsefe'
+                'categoryName' => 'Roman'
+            ],[
+                'categoryName' => 'Kişisel Gelişim'
+            ],[
+                'categoryName' => 'Bilim'
+            ],[
+                'categoryName' => 'Din Tasavvuf'
+            ],[
+                'categoryName' => 'Çocuk ve Gençlik'
+            ],[
+                'categoryName' => 'Öykü'
+            ],[
+                'categoryName' => 'Felsefe'
             ]
         ]);
-
     }
 }
