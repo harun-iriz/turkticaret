@@ -14,19 +14,19 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'categoryName' => 'Roman'
+                'category_title' => 'Roman'
             ],[
-                'categoryName' => 'Kişisel Gelişim'
+                'category_title' => 'Kişisel Gelişim'
             ],[
-                'categoryName' => 'Bilim'
+                'category_title' => 'Bilim'
             ],[
-                'categoryName' => 'Din Tasavvuf'
+                'category_title' => 'Din Tasavvuf'
             ],[
-                'categoryName' => 'Çocuk ve Gençlik'
+                'category_title' => 'Çocuk ve Gençlik'
             ],[
-                'categoryName' => 'Öykü'
+                'category_title' => 'Öykü'
             ],[
-                'categoryName' => 'Felsefe'
+                'category_title' => 'Felsefe'
             ]
         ]);
     }
