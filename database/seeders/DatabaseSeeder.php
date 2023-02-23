@@ -12,11 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-<<<<<<< Updated upstream
-=======
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
->>>>>>> Stashed changes
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
