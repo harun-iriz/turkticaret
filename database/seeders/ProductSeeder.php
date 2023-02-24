@@ -65,7 +65,7 @@ class ProductSeeder extends Seeder
                 'stock_quantity' => 2
             ],[
                 'title' => 'Allah De Ötesini Bırak',
-                'category_id' => 3,
+                'category_id' => 4,
                 'category_title' => 'Din Tasavvuf',
                 'author' => 'Uğur Koşar',
                 'list_price' => 39.6,
@@ -79,7 +79,7 @@ class ProductSeeder extends Seeder
                 'stock_quantity' => 9
             ],[
                 'title' => 'Benim Zürafam Uçabilir',
-                'category_id' => 4,
+                'category_id' => 5,
                 'category_title' => 'Çocuk ve Gençlik',
                 'author' => 'Mert Arık',
                 'list_price' => 27.3,
@@ -93,21 +93,21 @@ class ProductSeeder extends Seeder
                 'stock_quantity' => 2
             ],[
                 'title' => 'Kamyon - Seçme Öyküler',
-                'category_id' => 5,
+                'category_id' => 6,
                 'category_title' => 'Öykü',
                 'author' => 'Sabahattin Al',
                 'list_price' => 9.75,
                 'stock_quantity' =>9
             ],[
                 'title' => 'Kendime Düşünceler',
-                'category_id' => 6,
+                'category_id' => 7,
                 'category_title' => 'Felsefe',
                 'author' => 'Marcus Aurelius',
                 'list_price' => 14.40,
                 'stock_quantity' => 1
             ],[
                 'title' => 'Denemeler - Hasan Ali Yücel Klasikleri',
-                'category_id' => 6,
+                'category_id' => 7,
                 'category_title' => 'Felsefe',
                 'author' => 'Michel de Montaigne',
                 'list_price' => 24,
