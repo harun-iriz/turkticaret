@@ -32,7 +32,6 @@ class OrderController extends Controller
             $user = Auth::user();
             $order_id = Str::random(10);
 
-            $responseData=[];
             $products = $request["products"];
 
             foreach ($products as $product){

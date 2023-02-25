@@ -20,21 +20,21 @@ class ProductSeeder extends Seeder
                 'category_title' => 'Roman',
                 'author' => 'Yaşar Kemal',
                 'list_price' => 48.75,
-                'stock_quantity' => 10
+                'stock_quantity' => 10000
             ],[
                 'title' => 'Tutunamayanlar',
                 'category_id' => 1,
                 'category_title' => 'Roman',
                 'author' => 'Oğuz Atay',
                 'list_price' => 90.3,
-                'stock_quantity' => 20
+                'stock_quantity' => 20000
             ],[
                 'title' => 'Kürk Mantolu Madonna',
                 'category_id' => 1,
                 'category_title' => 'Roman',
                 'author' => 'Sabahattin Ali',
                 'list_price' => 9.1,
-                'stock_quantity' => 4
+                'stock_quantity' => 4000
             ],[
                 'title' => 'Fareler ve İnsanlar',
                 'category_id' => 1,
@@ -90,14 +90,14 @@ class ProductSeeder extends Seeder
                 'category_title' => 'Roman',
                 'author' => 'Sabahattin Ali',
                 'list_price' => 10.4,
-                'stock_quantity' => 2
+                'stock_quantity' => 2000
             ],[
                 'title' => 'Kamyon - Seçme Öyküler',
                 'category_id' => 6,
                 'category_title' => 'Öykü',
                 'author' => 'Sabahattin Al',
                 'list_price' => 9.75,
-                'stock_quantity' =>9
+                'stock_quantity' =>9000
             ],[
                 'title' => 'Kendime Düşünceler',
                 'category_id' => 7,
