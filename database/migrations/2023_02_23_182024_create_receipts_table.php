@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('receipts', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
+            $table->string('order_id');
             $table->double('shipment_fee');
-            $table->double('total_fee');
+            $table->double('discounted_fee');
+            $table->double('all_products_fee');
+            $table->double('total_fee')->comment('shipping fee included');
             $table->double('discounted_total_fee');
             $table->timestamps();
         });

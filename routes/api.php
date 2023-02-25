@@ -26,5 +26,5 @@ Route::post("login",[AuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post("/logout",[AuthController::class, 'logout'])->name('logout');
-    Route::post("/order",[OrderController::class, 'order'])->name('order');
+    Route::post("/order",[OrderController::class, 'createOrder'])->name('createOrder');
 });

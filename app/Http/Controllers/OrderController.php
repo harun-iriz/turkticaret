@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Receipt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Traits\ResponseAPI;
@@ -13,12 +14,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use PHPUnit\Exception;
 use PHPUnit\Framework\Constraint\Count;
+use App\Http\Controllers\ReceiptController;
 
 class OrderController extends Controller
 {
     use ResponseAPI;
 
-    public function order(Request $request): JsonResponse
+    public function createOrder(Request $request): JsonResponse
     {
         try {
             $validator = Validator::make($request->all(),[
@@ -30,7 +32,6 @@ class OrderController extends Controller
             $user = Auth::user();
             $order_id = Str::random(10);
 
-            $productData=[];
             $responseData=[];
             $products = $request["products"];
 
@@ -62,10 +63,14 @@ class OrderController extends Controller
                     'order_id' => $order_id,
                     'user_id' => $user->id,
                     'product_id' => trim($productIdData[$i]),
+                    'product_title' => $product->title,
+                    'category_id' => $product->category_id,
+                    'category_title' => $product->category_title,
+                    'author' => $product->author,
                     'quantity' => $productQuantityData[$i],
                     'order_price' => $product_price
                 ];
-                $responseData[] = $data;
+                $orderProducts[] = $data;
                 $create = Order::create($data);
             }
 
@@ -75,6 +80,13 @@ class OrderController extends Controller
                     DB::table('products')->where('product_id', $productIdData[$i])->decrement('stock_quantity', $productQuantityData[$i]);
                 }
             }
+
+            $receipt = (new ReceiptController)->createReceipt($orderProducts);
+
+            $responseData = [
+                'order_products' => $orderProducts,
+                'receipt' => $receipt
+            ];
 
             return $this->success(message: "Order created successfully.", data: $responseData);
         }catch (Exception $e){

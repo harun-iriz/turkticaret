@@ -13,6 +13,10 @@ class Order extends Model
         'order_id',
         'user_id',
         'product_id',
+        'product_title',
+        'category_id',
+        'category_title',
+        'author',
         'quantity',
         'order_price',
     ];
