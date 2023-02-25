@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_id');
-            $table->integer('user_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('product_title');
+            $table->unsignedBigInteger('category_id');
+            $table->string('category_title');
+            $table->string('author');
+            $table->unsignedBigInteger('quantity');
             $table->double('order_price');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

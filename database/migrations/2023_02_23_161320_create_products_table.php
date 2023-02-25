@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id');
             $table->string('title');
-            $table->integer('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('category_title');
             $table->string('author');
             $table->double('list_price');
-            $table->integer('stock_quantity');
+            $table->unsignedBigInteger('stock_quantity');
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
