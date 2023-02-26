@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OfferCreated;
 use App\Models\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 
 class OfferController extends Controller
 {
     public function offerCheck($orderProducts,$totalFee){
+
+        Event::dispatch(new OfferCreated());
 
         $offer1Data = $this->offerOneCheck($orderProducts,$totalFee);
         $offer2Data = $this->offerTwoCheck($orderProducts,$totalFee);
@@ -24,7 +28,9 @@ class OfferController extends Controller
     // For Offer Id = 1;
     public function offerOneCheck($orderProducts,$totalFee){
 
-        $offer1 = Offer::where('offer_id', 1)->get();
+        $offer1 = Cache('offers', function (){
+            return Offer::where('offer_id', 1)->get();
+        });
 
         $offer1CheckDiscount= 0;
         $offer1DiscountedFee= 0;
@@ -70,7 +76,9 @@ class OfferController extends Controller
     // For Offer Id = 2;
     public function offerTwoCheck($orderProducts,$totalFee){
 
-        $offer2 = Offer::where('offer_id', 2)->get();
+        $offer2 = Cache('offers', function (){
+            return Offer::where('offer_id', 2)->get();
+        });
 
         $offer2Data = ['discounted_amount' => 0];
         $offer2CheckDiscount=0;

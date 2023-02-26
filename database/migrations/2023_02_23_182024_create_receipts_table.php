@@ -18,7 +18,6 @@ return new class extends Migration
             $table->double('discounted_fee')->default(0);
             $table->double('all_products_fee');
             $table->double('total_fee')->comment('shipping fee included');
-            $table->double('discounted_total_fee');
             $table->timestamps();
         });
     }
