@@ -15,6 +15,5 @@ class Receipt extends Model
         'discounted_fee',
         'all_products_fee',
         'total_fee',
-        'discounted_total_fee'
     ];
 }
