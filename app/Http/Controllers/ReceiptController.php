@@ -22,6 +22,7 @@ class ReceiptController extends Controller
             $orderId = $item['order_id'];
         }
 
+        // Find Best Offer
         $bestOffer = (new OfferController)->offerCheck($orderProducts,$totalFee);
 
         // Is Shipment Free
@@ -33,17 +34,16 @@ class ReceiptController extends Controller
             $shipmentFee=0;
         }
 
-        $data = [
+        $receiptData = [
             'order_id' => $orderId,
             'shipment_fee' => $shipmentFee,
             'discounted_fee' => $bestOffer['discounted_amount'],
             'all_products_fee' => $totalFee,
-            'discounted_total_fee' => $totalFee - $bestOffer['discounted_amount'],
             'total_fee' => $totalFee + $shipmentFee - $bestOffer['discounted_amount']
         ];
-        Receipt::create($data);
+        Receipt::create($receiptData);
 
-        $data2 = [
+        $usedOfferData = [
             'order_id' => $orderId,
             'offer_id' => $bestOffer['offer_id'],
             'offer_title' => $bestOffer['offer_title'],
@@ -56,11 +56,11 @@ class ReceiptController extends Controller
             'offer_rate' => $bestOffer['offer_rate'],
             'discounted_amount' => $bestOffer['discounted_amount']
         ];
-        UsedOffer::create($data2);
-        
+        UsedOffer::create($usedOfferData);
+
         $responseData = [
-            'receipt' => $data,
-            'discount' => $data2
+            'receipt' => $receiptData,
+            'discount' => $usedOfferData
         ];
 
         return $responseData;

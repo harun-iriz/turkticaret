@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Receipt;
+use App\Models\UsedOffer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Traits\ResponseAPI;
@@ -88,6 +89,61 @@ class OrderController extends Controller
             ];
 
             return $this->success(message: "Order created successfully.", data: $responseData);
+        }catch (Exception $e){
+            return $this->error(message: $e->getMessage(), statusCode: $e->getCode());
+        }
+    }
+
+    public function showOrderDetails($order_id){
+        try {
+            $user = Auth::user();
+
+            $productsData = [];
+            $products = Order::where('user_id', $user->id)->where('order_id', $order_id)->get();
+            foreach ($products as $product){
+                $productsData[] = [
+                    'order_id' => $product->order_id,
+                    'product_id' => $product-> product_id,
+                    'product_title' => $product-> product_title,
+                    'category_id' => $product-> category_id,
+                    'category_title' => $product-> category_title,
+                    'author' => $product-> author,
+                    'quantity' => $product-> quantity,
+                    'order_price' => $product-> order_price
+                ];
+            }
+
+            $receipt = Receipt::where('order_id', $order_id)->first();
+            $receiptData = [
+                'order_id' => $receipt->order_id,
+                'shipment_fee' => $receipt->shipment_fee,
+                'discounted_fee' => $receipt->discounted_fee,
+                'all_products_fee' => $receipt->all_products_fee,
+                'total_fee' => $receipt->total_fee,
+                'discounted_total_fee' => $receipt->discounted_total_fee
+            ];
+
+            $offer = UsedOffer::where('order_id', $order_id)->first();
+            $offerData = [
+                'order_id' => $offer->offer_id,
+                'offer_id' => $offer->offer_id,
+                'offer_title' =>$offer->offer_title,
+                'products_id' => $offer->product_id,
+                'products_title' => $offer->products_title,
+                'category_id' => $offer->category_id,
+                'author' => $offer->author,
+                'min_order' => $offer->min_order,
+                'offer_rate' => $offer->offer_rate,
+                'discounted_amount' => $offer->discounted_amount
+            ];
+
+            $responseData = [
+                'products' => $productsData,
+                'receipt' => $receiptData,
+                'offer' => $offerData
+            ];
+
+            return $this->success(message: "The order is showing successfully.", data: $responseData);
         }catch (Exception $e){
             return $this->error(message: $e->getMessage(), statusCode: $e->getCode());
         }
