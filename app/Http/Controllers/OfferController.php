@@ -12,7 +12,7 @@ class OfferController extends Controller
 {
     public function __construct(){
         Event::dispatch(new OfferCreated());
-        Cache('products', function (){
+        Cache('offers', function (){
             return Offer::get();
         });
     }
@@ -80,9 +80,6 @@ class OfferController extends Controller
     // For Offer Id = 2;
     public function offerTwoCheck($orderProducts,$totalFee){
 
-        $offer2 = Cache('offers', function (){
-            return Offer::where('offer_id', 2)->get();
-        });
         $offer2 = Cache::get('offers')->where('offer_id', 2);
 
         $offer2Data = ['discounted_amount' => 0];
