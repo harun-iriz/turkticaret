@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProductCreated;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Receipt;
@@ -10,7 +11,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Traits\ResponseAPI;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use PHPUnit\Exception;
@@ -20,6 +23,13 @@ use App\Http\Controllers\ReceiptController;
 class OrderController extends Controller
 {
     use ResponseAPI;
+
+    public function __construct(){
+        Event::dispatch(new ProductCreated());
+        Cache('products', function (){
+            return Product::get();
+        });
+    }
 
     public function createOrder(Request $request): JsonResponse
     {
@@ -43,9 +53,12 @@ class OrderController extends Controller
             // Stock Control
             $outOfStock =[];
             for ($i=0; $i < count($productIdData) ;$i++){
-                $product = Product::where('product_id', $productIdData[$i])->first();
-                if ($product->stock_quantity < $productQuantityData[$i]) {
-                    $outOfStock[] = $productIdData[$i];
+                $id = $productIdData[$i];
+                $product = Cache::get('products')->where('product_id', $id);
+                foreach ($product as $object){
+                    if ($object->stock_quantity < $productQuantityData[$i]) {
+                        $outOfStock[] = $productIdData[$i];
+                    }
                 }
             }
             if (count($outOfStock)>0){
@@ -57,21 +70,25 @@ class OrderController extends Controller
 
             // Create Order
             for ($i=0; $i < count($productIdData) ;$i++){
-                $product = Product::where('product_id', $productIdData[$i])->first();
-                $product_price = $product->list_price;
-                $data = [
-                    'order_id' => $order_id,
-                    'user_id' => $user->id,
-                    'product_id' => trim($productIdData[$i]),
-                    'product_title' => $product->title,
-                    'category_id' => $product->category_id,
-                    'category_title' => $product->category_title,
-                    'author' => $product->author,
-                    'quantity' => $productQuantityData[$i],
-                    'order_price' => $product_price
-                ];
-                $orderProducts[] = $data;
-                $create = Order::create($data);
+                $id = $productIdData[$i];
+                $product = Cache::get('products')->where('product_id', $id);
+
+                foreach ($product as $object){
+                    $product_price = $object->list_price;
+                    $data = [
+                        'order_id' => $order_id,
+                        'user_id' => $user->id,
+                        'product_id' => trim($productIdData[$i]),
+                        'product_title' => $object->title,
+                        'category_id' => $object->category_id,
+                        'category_title' => $object->category_title,
+                        'author' => $object->author,
+                        'quantity' => $productQuantityData[$i],
+                        'order_price' => $product_price
+                    ];
+                    $orderProducts[] = $data;
+                    $create = Order::create($data);
+                }
             }
 
             // Decrease Quantity
