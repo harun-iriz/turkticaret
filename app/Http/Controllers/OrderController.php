@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ProductCreated;
+use App\Jobs\OrderJob;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Receipt;
@@ -33,6 +34,8 @@ class OrderController extends Controller
 
     public function createOrder(Request $request): JsonResponse
     {
+        //OrderJob::dispatch($request);
+
         try {
             $validator = Validator::make($request->all(),[
                 'products' => 'required'
@@ -87,7 +90,8 @@ class OrderController extends Controller
                         'order_price' => $product_price
                     ];
                     $orderProducts[] = $data;
-                    $create = Order::create($data);
+                    $create = dispatch(new OrderJob($data));
+                    //$create = Order::create($data);
                 }
             }
 
