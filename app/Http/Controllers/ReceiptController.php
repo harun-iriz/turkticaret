@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ReceiptJob;
+use App\Jobs\UsedOfferJob;
 use App\Models\Receipt;
 use App\Models\UsedOffer;
 use Illuminate\Http\Request;
@@ -41,7 +43,8 @@ class ReceiptController extends Controller
             'all_products_fee' => $totalFee,
             'total_fee' => $totalFee + $shipmentFee - $bestOffer['discounted_amount']
         ];
-        Receipt::create($receiptData);
+        //Receipt::create($receiptData);
+        dispatch(new ReceiptJob($receiptData));
 
         $usedOfferData = [
             'order_id' => $orderId,
@@ -56,7 +59,8 @@ class ReceiptController extends Controller
             'offer_rate' => $bestOffer['offer_rate'],
             'discounted_amount' => $bestOffer['discounted_amount']
         ];
-        UsedOffer::create($usedOfferData);
+        //UsedOffer::create($usedOfferData);
+        dispatch(new UsedOfferJob($usedOfferData));
 
         $responseData = [
             'receipt' => $receiptData,
