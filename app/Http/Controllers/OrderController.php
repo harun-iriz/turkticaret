@@ -121,6 +121,11 @@ class OrderController extends Controller
 
             $productsData = [];
             $products = Order::where('user_id', $user->id)->where('order_id', $order_id)->get();
+
+            if(count($products)<1){
+                return $this->success(message: "No record found for this order id.", data: $products);
+            }
+
             foreach ($products as $product){
                 $productsData[] = [
                     'order_id' => $product->order_id,
