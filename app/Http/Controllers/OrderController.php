@@ -52,7 +52,7 @@ class OrderController extends Controller
                 $productIdData[] = $product["product_id"];
                 $productQuantityData[] = $product["quantity"];
             }
-            
+
             // Does the product id from the request exist in the database?
             $noProduct = [];
             foreach ($productIdData as $product_id) {

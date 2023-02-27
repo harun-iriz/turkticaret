@@ -1,66 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Turkticaret PHP Case Kurulum
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Harun IRIZ
 
-## About Laravel
+Backend repository: https://github.com/harun-iriz/turkticaret.git
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1-	Clone repository 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2-	Terminalde cd ile dosya dizinine gidin.
 
-## Learning Laravel
+3-	“composer install” komutunu çalıştırın.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4-	.env.example dosyasını yeniden adlandırın veya .env olarak kopyalayın.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+5-	“php artisan key:generate” komutunu çalıştırın.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+6-	.env dosyanızda DB_DATABASE=turkticaret olarak ayarlayın.
 
-## Laravel Sponsors
+7-	XAMPP veya Wamp uygulamaları üzerinden Apache ve MySQL serverlarını başlatın.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+8-	Google üzerinden http://localhost:8080/phpmyadmin sayfasına gidin. (! Port numaranıza dikkat ediniz.)
 
-### Premium Partners
+9-	turkticaret adında yeni bir veritabanı oluşturun.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+10-	“php artisan migrate” komutunu çalıştırın.
 
-## Contributing
+11-	“php artisan db:seed” komutunu çalıştırın.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+12-	“php artisan queue:work” komutunu çalıştırın ve kapatmayın.
 
-## Code of Conduct
+13-	“php artisan serve” komutunu yeni bir terminalde çalıştırın ve kapatmayın.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+14-	Postman uygulamasını açın ve clonelamış olduğunuz turkticaret dosyasının içinde bulunan kurulumDosyalari klasörünün içindeki “TurkTicaret.postman_collection.json” dosyasını import edin. (Eğer port numaranız farklı ise url kısmından düzenleyin.)
 
-## Security Vulnerabilities
+15-	Login requestini çalıştırın ve dönen results içindeki token’ı kopyalayın. 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+16-	Create Order resquestine giderek Authorization kısmından Type’ı Bearer Token olarak değiştirin. Sağdaki gerekli kısma kopyalamış olduğunuz token’ı yapıştırın. Create Order requestini çalıştırabilirsiniz. 
 
-## License
+17-	Oluşturmuş olduğunuz requestte dönen order_id’yi kopyalayarak Order Details requstinde url’in sonun yapıştırın. Authorization kısmından Type’ı Bearer Token olarak değiştirin. Sağdaki gerekli kısma kopyalamış olduğunuz token’ı yapıştırın.  Send işlemi gerçekleştirebilirsiniz.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Endpointler:
+
+	(POST) login : Login işlemi için gerekli endpoint.
+Body : 
+{
+    "email":"admin@admin.com",
+    "password":"123456"
+}
+
+	(POST) login : Logout işlemi için gerekli endpoint.
+Authorization: Bearer Token gerekli.
+
+	(POST) order : Sipariş vermek için gerekli endpoint. Birden fazla ürün girilebilmektedir. “quantity” ile belirli üründen kaç adet sipariş verildiği bildirilir.
+Body:
+{
+    "products":[
+        {"product_id":31,"quantity":1},
+        {"product_id":19,"quantity":1},
+        {"product_id":111,"quantity":2}
+    ]
+}
+Authorization: Bearer Token gerekli.
+
+	(GET) order/{order_id} : Verilen sipariş hakkında bilgileri dönen endpoint. Ürünler, fatura ve yararlanılan kampanya.
+Authorization: Bearer Token gerekli.
+
