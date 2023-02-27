@@ -52,6 +52,22 @@ class OrderController extends Controller
                 $productIdData[] = $product["product_id"];
                 $productQuantityData[] = $product["quantity"];
             }
+            
+            // Does the product id from the request exist in the database?
+            $noProduct = [];
+            foreach ($productIdData as $product_id) {
+                $products=null;
+                $products = Product::where('product_id', $product_id)->first();
+                if ($products == null) {
+                    $noProduct[] = $product_id;
+                }
+            }
+            if (count($noProduct)>0){
+                $data = [
+                    'No find Products' => $noProduct
+                ];
+                return $this->success(message: "Coldnt find the product..", data: $data);
+            }
 
             // Stock Control
             $outOfStock =[];
