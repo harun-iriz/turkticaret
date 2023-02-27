@@ -48,7 +48,7 @@ Body :
     "password":"123456"
 }
 
-	(POST) login : Logout işlemi için gerekli endpoint.
+	(POST) logout : Logout işlemi için gerekli endpoint.
 Authorization: Bearer Token gerekli.
 
 	(POST) order : Sipariş vermek için gerekli endpoint. Birden fazla ürün girilebilmektedir. “quantity” ile belirli üründen kaç adet sipariş verildiği bildirilir.
